@@ -1,0 +1,31 @@
+Hi! These are the answers to the example questions for my final SQL project 
+
+--1 Show only the Customers from Brazil.
+SELECT * FROM chinook.customers
+WHERE Country = "Brazil";
+
+--2 Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country.
+SELECT cust.FirstName, cust.LastName, inv.InvoiceID, inv.BillingCountry, inv.InvoiceDate
+FROM chinook.invoices as inv
+LEFT JOIN chinook.customers as cust
+WHERE inv.BillingCountry = "Brazil";
+
+--3 How many Invoices were there in 2009?
+SELECT COUNT(*) 
+FROM chinook.invoices
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-21';
+
+--4 Show the total sales made by each sales agent.
+SELECT emp.FirstName, emp.Lastname,
+ROUND(SUM(Inv,Total), as 'Total Sales'
+FROM chinook.Employees emp
+
+JOIN chinook.Customers cust
+ON cust.SupportRepID = emp.EmployeeID
+
+JOIN chinook.Invoices Inv
+ON Inv.CustomerID = cust.CustomerId
+
+WHERE emp.Title = 'Sales Support Agent'
+GROUP BY emp.FirstName;
+
